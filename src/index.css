@@ -15,3 +15,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+/*UTILS*/
+.input-styled {
+  border: none; 
+  border-bottom: 2px solid #dddddd; 
+  padding: 5px 10px; 
+  outline: none; 
+  transition: border-color 0.3s; 
+  box-shadow: none; 
+  padding: 5px 10px;
+}
+.input-styled:focus {
+  border-bottom: 2px solid black; /* Cambia el color del borde inferior cuando el input está en foco */
+}

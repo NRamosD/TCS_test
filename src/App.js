@@ -1,14 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import { PseudoLogin } from './components/pseudologin';
+import { ContainerProducts } from './components/containerProducts';
+
+
 
 function App() {
   return (
     <div className='general-container'>
-      <PseudoLogin/>
-
+      {/* <PseudoLogin/> */}
+      <ContainerProducts/>
     </div>
   );
 }
 
 export default App;
+
+
