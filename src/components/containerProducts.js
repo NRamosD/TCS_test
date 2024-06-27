@@ -2,7 +2,13 @@ import { useEffect, useState } from "react"
 import menuIcon from "../resources/images/menu-vertical.svg"
 import { AUTHOR_ID, BASE_URL } from "../utils/consts"
 export const ContainerProducts = () =>{
+    const ITEMS_TO_SHOW = 5;
+
     const [dataProduct, setDataProduct] = useState([])
+    const [dataToShow, setDataToShow] = useState([])
+    const [totalProducts, setTotalProducts] = useState(0)
+    const [totalPages, setTotalPages] = useState([1])
+    const [currentPage, setCurrentPage] = useState(0)
 
     useEffect(()=>{
         fetch(
@@ -19,8 +25,26 @@ export const ContainerProducts = () =>{
             ).then(data=>{
                 console.log("ok")
                 setDataProduct(data)
+                setTotalProducts(data.length)
+                //pagination
+                let auxArray = [];
+                let totalP = Math.ceil(data.length/ITEMS_TO_SHOW)
+                for(let i=0;i<totalP;i++){
+                    auxArray.push(i+1)
+                }
+                setTotalPages(auxArray)
+                let copyArray = [...data]
+                setDataToShow(copyArray.slice(ITEMS_TO_SHOW*currentPage, ITEMS_TO_SHOW))
         });
     },[])
+
+
+    function handlePagination(currentPage){
+        let copyArray = [...dataProduct]
+        let auxData = copyArray.slice(ITEMS_TO_SHOW*currentPage, ITEMS_TO_SHOW*currentPage+ITEMS_TO_SHOW)
+        setDataToShow(auxData)
+        setCurrentPage(currentPage)
+    }
 
 
 
@@ -43,7 +67,7 @@ export const ContainerProducts = () =>{
                         <tbody className="overflow-y-auto">
                             {
                                 dataProduct.length>0?
-                                    dataProduct.map((item,idx)=>{
+                                    dataToShow.map((item,idx)=>{
                                         return(
                                             <tr className=" border-b-2">
                                                 <td className=" flex h-20">
@@ -68,8 +92,20 @@ export const ContainerProducts = () =>{
                         </tbody>
                     </table>
                 </div>
-                <div className="mt-10">
-                    <p>{dataProduct.length} Resultados</p>
+                <div className="mt-10 grid grid-cols-2">
+                    <p>{totalProducts} Resultados</p>
+                    <div className="flex justify-end mx-10 my-5">
+                        {
+                            totalPages.map((item,idx)=>{
+                                return(
+                                    idx==currentPage?
+                                    <button onClick={()=>handlePagination(idx)} className="mx-2 px-4 underline font-bold">{item}</button>
+                                    :
+                                    <button onClick={()=>handlePagination(idx)} className="mx-2 px-4 hover:underline">{item}</button>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             </div>
         </>
