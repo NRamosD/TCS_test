@@ -4,8 +4,8 @@ export const ContainerProducts = () =>{
     return(
 
         <>
-            <div className=" w-full h-full bg-gray-400 p-10 relative">
-                <div className="w-full h-full bg-white">
+            <div className=" w-full h-full p-10 relative shadow-xl bg-white">
+                <div className="w-full h-full bg-white shadow-2xl">
                     <table class=" w-full text-center">
                         <thead className="">
                             <tr className=" bg-gray-200 h-14 text-lg">
